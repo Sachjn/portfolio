@@ -4,9 +4,9 @@ import App from './App.jsx'
 import './index.css'
 import ReactGA from 'react-ga4'
 
-// Initialize Google Analytics
+// Initialize Google Analytics (production only)
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
-if (GA_MEASUREMENT_ID) {
+if (GA_MEASUREMENT_ID && import.meta.env.PROD) {
     ReactGA.initialize(GA_MEASUREMENT_ID);
 }
 
