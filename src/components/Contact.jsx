@@ -14,30 +14,43 @@ const Contact = () => {
         setLoading(true);
         setStatus({ type: null, message: '' });
 
+        // Validate env vars
+        const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const autoReplyId = import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID;
+        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+        if (!serviceId || !templateId || !publicKey) {
+            console.error('EmailJS config missing:', { serviceId: !!serviceId, templateId: !!templateId, publicKey: !!publicKey });
+            setLoading(false);
+            setStatus({ type: 'error', message: 'Contact form is not configured. Please try again later.' });
+            return;
+        }
+
         const formData = new FormData(form.current);
-        const userEmail = formData.get('email');
         const userName = formData.get('name');
+        const userEmail = formData.get('email');
         const userMessage = formData.get('message');
 
         try {
-            await emailjs.sendForm(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-                form.current,
-                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-            );
+            // Send main email
+            const result = await emailjs.sendForm(serviceId, templateId, form.current, publicKey);
+            console.log('EmailJS SUCCESS:', result.status, result.text);
 
-            await emailjs.send(
-                import.meta.env.VITE_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID,
-                {
-                    name: userName,
-                    email: userEmail,
-                    title: formData.get('title'),
-                    message: userMessage,
-                },
-                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-            );
+            // Auto-reply (non-blocking — main email already succeeded)
+            if (autoReplyId) {
+                try {
+                    await emailjs.send(serviceId, autoReplyId, {
+                        name: userName,
+                        email: userEmail,
+                        title: formData.get('title'),
+                        message: userMessage,
+                    }, publicKey);
+                    console.log('Auto-reply sent successfully');
+                } catch (replyErr) {
+                    console.warn('Auto-reply failed (main email still sent):', replyErr);
+                }
+            }
 
             setLoading(false);
             setStatus({ type: 'success', message: 'Message sent successfully. I will get back to you soon.' });
@@ -52,6 +65,7 @@ const Contact = () => {
             setTimeout(() => setStatus({ type: null, message: '' }), 5000);
 
         } catch (error) {
+            console.error('EmailJS FAILED:', error);
             setLoading(false);
             setStatus({ type: 'error', message: 'Something went wrong. Please try again later.' });
         }
