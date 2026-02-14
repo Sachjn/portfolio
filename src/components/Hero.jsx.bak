@@ -1,0 +1,140 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Github, Linkedin, Mail, Download, Instagram, MessageCircle } from 'lucide-react';
+import ReactGA from 'react-ga4';
+
+const Hero = () => {
+    const handleConnectClick = () => {
+        ReactGA.event({
+            category: "Engagement",
+            action: "Click",
+            label: "Let's Connect Button"
+        });
+    };
+
+    return (
+        <section id="hero" className="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+
+            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px]" />
+            <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-pink-600/20 rounded-full blur-[100px]" />
+
+            <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+                {/* LEFT SIDE */}
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <span className="text-purple-600 dark:text-purple-400 font-medium tracking-wider mb-4 block">
+                        HELLO, I'M
+                    </span>
+
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-slate-900 dark:text-white">
+                        Sachin <br />
+                        <span className="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-600 bg-clip-text text-transparent">
+                            Kannaujiya
+                        </span>
+                    </h1>
+
+                    <h2 className="text-2xl md:text-3xl font-semibold text-slate-700 dark:text-slate-200 mb-2">
+                        Data Analyst & <br />
+                        <span className="text-purple-600 dark:text-purple-400">
+                            Business Analytics Enthusiast
+                        </span>
+                    </h2>
+
+                    <p className="text-slate-600 dark:text-slate-300 text-lg mb-4">
+                        📍 Mumbai, Maharashtra, India
+                    </p>
+
+                    <p className="text-slate-600 dark:text-slate-400 text-lg mb-8 max-w-lg">
+                        I analyze data to uncover insights, improve decision-making,
+                        and drive business growth. Passionate about transforming
+                        raw data into clear, actionable strategies.
+                    </p>
+
+                    <div className="flex flex-col gap-6">
+
+                        <div className="flex flex-wrap gap-4">
+                            <a
+                                href="#projects"
+                                className="group bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full flex items-center gap-2 transition-all"
+                            >
+                                View Work
+                                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </a>
+
+                            <a
+                                href="#contact"
+                                onClick={handleConnectClick}
+                                className="group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full flex items-center gap-2 transition-all shadow-lg hover:shadow-purple-500/25"
+                            >
+                                Let's Connect
+                                <Mail size={20} className="group-hover:translate-x-1 transition-transform" />
+                            </a>
+
+                            <a
+                                href="/resume.pdf"
+                                download
+                                className="group border border-slate-300 dark:border-slate-700 hover:border-purple-500 text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-white px-8 py-3 rounded-full flex items-center gap-2 transition-all hover:bg-slate-100 dark:hover:bg-slate-800/50"
+                            >
+                                Download Resume
+                                <Download size={20} className="group-hover:translate-y-1 transition-transform" />
+                            </a>
+                        </div>
+
+                        <div className="flex gap-4 items-center mt-2">
+                            <a href="https://github.com/Sachjn" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-white transition-colors">
+                                <Github size={24} />
+                            </a>
+                            <a href="https://www.linkedin.com/in/sachin-kannaujiya-7189a62a3" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                <Linkedin size={24} />
+                            </a>
+                            <a href="https://www.instagram.com/sachinkanojia__/" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors">
+                                <Instagram size={24} />
+                            </a>
+                            <a href="mailto:kanojiasachin1789@gmail.com" className="text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors">
+                                <Mail size={24} />
+                            </a>
+                            <a
+                                href="https://wa.me/919129422095?text=Hi%20Sachin%2C%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-green-600 dark:hover:text-green-500 transition-all hover:scale-105"
+                            >
+                                <MessageCircle size={24} />
+                                <span className="font-medium">WhatsApp</span>
+                            </a>
+                        </div>
+
+                        <div className="text-slate-500 dark:text-slate-400 font-medium">
+                            +91 9129422095
+                        </div>
+
+                    </div>
+                </motion.div>
+
+                {/* RIGHT SIDE */}
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="relative"
+                >
+                    <div className="relative w-full aspect-square max-w-[500px] mx-auto">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full blur-2xl opacity-30 animate-pulse" />
+                        <img
+                            src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=1000"
+                            alt="Data Analytics"
+                            className="relative w-full h-full object-cover rounded-3xl shadow-2xl rotate-3 hover:rotate-0 transition-all duration-500 border border-slate-700/50"
+                        />
+                    </div>
+                </motion.div>
+
+            </div>
+        </section>
+    );
+};
+
+export default Hero;
