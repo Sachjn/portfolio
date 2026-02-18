@@ -94,7 +94,9 @@ const Hero = () => {
                             </a>
 
                             <a
-                                href="/resume.pdf"
+                                href="/Sachin_Kannaujiya_Resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 download
                                 className="group border border-slate-200 dark:border-white/10 hover:border-purple-400 dark:hover:border-purple-500/50 text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-white px-7 py-3 rounded-full flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:bg-purple-50 dark:hover:bg-white/5 font-semibold text-sm"
                             >
